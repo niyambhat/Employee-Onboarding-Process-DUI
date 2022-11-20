@@ -15,13 +15,14 @@ const [errors, setErrors] = useState<any>({})
 
 useEffect(()=>{
 if(onChange) onChange(formFields, valid, errors);
-},[onChange, valid, errors])
+},[onChange, formFields, valid, errors])
 
   return (
     <>
     <div>
-      <SimpleForm value={initialValue} onChange={setFormFields}>
-      <InputField name="FirstName" label="First Name"/>
+      <SimpleForm value={formFields} onChange={setFormFields}>
+      <InputField name="FirstName" label="First Name"  />
+      <InputField name="LastName" label="Last Name"  />
       </SimpleForm>
     </div>
   </>

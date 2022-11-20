@@ -6,11 +6,6 @@ value:any,
 onChange:any
 }
 
-const updateWith=(oldValue:any, field:any ,value:any)=>{
-const newValue = {...oldValue};
-console.log(newValue);
-}
-
 
 type FormType ={
   setValue: any,
@@ -23,13 +18,20 @@ export const FormContext = createContext<FormType>({setValue:"", value:"", name:
 
 const SimpleForm:React.FC<SimpleFormType>=({children, value, onChange })=>{
 const [values, setValues] = useState(value || {});
+
 useEffect(() => {
+  setValues(value)
+}, [value])
+
+useEffect(() => {
+  console.log(values)
   if (onChange) {
     onChange(values)
   }
 }, [onChange, values])
+
 let setValue = useCallback(
-  (field:any, v:any) => setValues((vs:any) => updateWith(vs, field, v)),
+  (field:any, v:any) => setValues((prev:any) => ({...prev, [field]: v})),
   [setValues]
 )
 let getValue = useCallback((field:any) => 
